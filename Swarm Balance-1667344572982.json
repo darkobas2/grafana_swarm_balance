@@ -133,7 +133,7 @@
           "refId": "A"
         }
       ],
-      "title": "Token Sum - MAINNET",
+      "title": "BZZ Sum - MAINNET",
       "type": "stat"
     },
     {
@@ -229,7 +229,7 @@
           "refId": "A"
         }
       ],
-      "title": "Top 5 Token Balances - ${token_instance}",
+      "title": "Top 5 BZZ Balances - ${token_instance}",
       "transformations": [],
       "type": "timeseries"
     },
@@ -373,7 +373,7 @@
           "refId": "A"
         }
       ],
-      "title": "Token Sum - TESTNET",
+      "title": "BZZ Sum - TESTNET",
       "type": "stat"
     },
     {
@@ -551,37 +551,22 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "continuous-GrYlRd"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46",
+                "color": "green",
                 "value": null
               },
               {
-                "color": "#fce2de",
-                "value": 0
-              },
-              {
-                "color": "#d44a3a",
-                "value": 100
+                "color": "red",
+                "value": 80
               }
             ]
-          },
-          "unit": "percent"
+          }
         },
         "overrides": []
       },
@@ -596,9 +581,9 @@
       "links": [],
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -607,7 +592,7 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showUnfilled": true
       },
       "pluginVersion": "9.2.1",
       "targets": [
@@ -617,15 +602,16 @@
             "uid": "${DS_CORTEX}"
           },
           "editorMode": "code",
-          "expr": "(eth_balance{name=\"${name}\",instance=\"${eth_instance}\"} - eth_balance{name=\"${name}\",instance=\"${eth_instance}\"} offset 7d) / eth_balance{name=\"${name}\",instance=\"${eth_instance}\"}",
+          "expr": "(eth_balance{name=~\"${name}\",instance=\"${eth_instance}\"} - eth_balance{name=~\"${name}\",instance=\"${eth_instance}\"} offset 7d) / eth_balance{name=~\"${name}\",instance=\"${eth_instance}\"}",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
+          "legendFormat": "{{name}}",
           "refId": "A"
         }
       ],
       "title": "${name} ETH Week Change $eth_instance",
-      "type": "stat"
+      "type": "bargauge"
     },
     {
       "datasource": {
@@ -818,7 +804,7 @@
           "refId": "A"
         }
       ],
-      "title": "${name} TOKEN 1 Hour Change - ${token_instance}",
+      "title": "${name} BZZ 1 Hour Change - ${token_instance}",
       "type": "timeseries"
     },
     {
@@ -909,37 +895,22 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "continuous-GrYlRd"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46",
+                "color": "green",
                 "value": null
               },
               {
-                "color": "#fce2de",
-                "value": 0
-              },
-              {
-                "color": "#d44a3a",
-                "value": 100
+                "color": "red",
+                "value": 80
               }
             ]
-          },
-          "unit": "percent"
+          }
         },
         "overrides": []
       },
@@ -954,9 +925,9 @@
       "links": [],
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -965,7 +936,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showUnfilled": true,
+        "text": {
+          "titleSize": 12,
+          "valueSize": 12
+        }
       },
       "pluginVersion": "9.2.1",
       "targets": [
@@ -975,15 +950,17 @@
             "uid": "${DS_CORTEX}"
           },
           "editorMode": "code",
-          "expr": "(token_balance{name=\"${name}\",instance=\"${token_instance}\"} - token_balance{name=\"${name}\",instance=\"${token_instance}\"} offset 7d) / token_balance{name=\"${name}\",instance=\"${token_instance}\"}",
+          "expr": "(token_balance{name=~\"${name}\",instance=\"${token_instance}\"} - token_balance{name=~\"${name}\",instance=\"${token_instance}\"} offset 7d) / token_balance{name=~\"${name}\",instance=\"${token_instance}\"}",
           "format": "time_series",
           "instant": false,
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "{{name}}",
           "refId": "A"
         }
       ],
-      "title": "${name} ETH Week Change $token_instance",
-      "type": "stat"
+      "title": "${name} BZZ Week Change $token_instance",
+      "type": "bargauge"
     },
     {
       "datasource": {
@@ -1247,7 +1224,7 @@
           "refId": "A"
         }
       ],
-      "title": "${name} TOKEN 24 Hour Change $token_instance",
+      "title": "${name} BZZ 24 Hour Change $token_instance",
       "type": "timeseries"
     },
     {
@@ -1316,7 +1293,7 @@
           "refId": "A"
         }
       ],
-      "title": "${name} TOKEN $token_instance",
+      "title": "${name} BZZ $token_instance",
       "type": "bargauge"
     },
     {
@@ -1470,32 +1447,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "gw-bee2"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 6,
@@ -1523,14 +1475,14 @@
             "uid": "${DS_CORTEX}"
           },
           "editorMode": "code",
-          "expr": "sum(token_balance{instance=\"tokenexporter-development\"}) by (name)",
+          "expr": "sum(token_balance{instance=\"${token_instance}\"}) by (name)",
           "interval": "",
           "legendFormat": "{{name}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Token Balance - TESTNET",
+      "title": "BZZ Balance - $token_instance",
       "type": "timeseries"
     },
     {
@@ -1592,7 +1544,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
         "y": 28
       },
@@ -1627,99 +1579,6 @@
         }
       ],
       "title": "${name} ETH Balance",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_CORTEX}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 28
-      },
-      "id": 16,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_CORTEX}"
-          },
-          "editorMode": "code",
-          "expr": "sum(token_balance{instance=\"tokenexporter-master\"}) by (name)",
-          "interval": "",
-          "legendFormat": "{{name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Token Balance - MAINNET",
       "type": "timeseries"
     }
   ],
@@ -1862,6 +1721,6 @@
   "timezone": "",
   "title": "Swarm Balance",
   "uid": "kx25ZlHVz",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }
